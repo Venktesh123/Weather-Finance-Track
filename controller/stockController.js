@@ -1,12 +1,13 @@
 const Stock = require("../models/stockModel");
-const { fetchStock } = require("../services/stockService");
+const { fetchStockData } = require("../services/stockService");
 
 const getStock = async (req, res) => {
   const { company } = req.body;
 
   try {
     // Fetch data from external API
-    const stockData = await fetchStock(company);
+    const stockData = await fetchStockData(company);
+    console.log(stockData, "stockData");
 
     // Save in MongoDB
     const stock = new Stock({ company, data: stockData });
