@@ -7,7 +7,7 @@ const authRouter = require("./router/authRouter");
 const stockmodificationRouter = require("./router/stockmodifyingRouter");
 const weathermodificationRouter = require("./router/weatherModifyingRouter");
 const authMiddleware = require("./middleware/authMiddleware");
-
+const cors = require("cors");
 const app = express();
 
 app.use(express.json());
