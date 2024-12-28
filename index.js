@@ -1,22 +1,23 @@
 const express = require("express");
-const connectDB = require("./config/dbConnnection"); // Import the MongoDB connection
-require("dotenv").config(); // Import dotenv to load environment variables
+const connectDB = require("./config/dbConnnection");
+require("dotenv").config();
+const weatherRouter = require("./router/weatherRouter");
+const financeRouter = require("./router/finanaceRouter");
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 
 // Connect to MongoDB
 connectDB();
+app.use("/weather", weatherRouter);
+app.use("/finance", financeRouter);
 
-// Sample route
 app.get("/", (req, res) => {
   res.send("MongoDB connection is successful!");
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000; // Load PORT from .env or use default 3000
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
