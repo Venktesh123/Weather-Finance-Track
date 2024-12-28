@@ -12,7 +12,7 @@ const getWeatherdetailsByLocation = async (req, res) => {
     const weather = new Weather({ location, data: weatherData });
     await weather.save();
 
-    res.status(200).json({ success: true, data: weatherData });
+    res.status(200).json({ success: true, data: weatherData.weather });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
