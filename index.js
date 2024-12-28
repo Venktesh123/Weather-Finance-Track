@@ -2,7 +2,7 @@ const express = require("express");
 const connectDB = require("./config/dbConnnection");
 require("dotenv").config();
 const weatherRouter = require("./router/weatherRouter");
-const financeRouter = require("./router/finanaceRouter");
+const stockRouter = require("./router/finanaceRouter");
 
 const app = express();
 
@@ -10,11 +10,11 @@ app.use(express.json());
 
 // Connect to MongoDB
 connectDB();
-app.use("/weather", weatherRouter);
-app.use("/finance", financeRouter);
+app.use("/api/weather", weatherRouter);
+app.use("/api/stock", stockRouter);
 
 app.get("/", (req, res) => {
-  res.send("MongoDB connection is successful!");
+  res.send("Backend Working ON Port 3000");
 });
 
 const PORT = process.env.PORT || 3000;
