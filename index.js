@@ -6,6 +6,7 @@ const stockRouter = require("./router/finanaceRouter");
 const authRouter = require("./router/authRouter");
 const stockmodificationRouter = require("./router/stockmodifyingRouter");
 const weathermodificationRouter = require("./router/weatherModifyingRouter");
+const authMiddleware = require("./middleware/authMiddleware");
 
 const app = express();
 
@@ -13,16 +14,15 @@ app.use(express.json());
 
 // Connect to MongoDB
 connectDB();
-app.use("/api", authRouter);
-app.use("/api/weather", weatherRouter);
-app.use("/api/stock", stockRouter);
-app.use("/api/v1", stockmodificationRouter);
-app.use("/api/v2", weathermodificationRouter);
 app.get("/", (req, res) => {
   res.send("Backend Working ON Port 3000");
 });
+app.use("/api", authRouter);
+app.use("/api/weather", weatherRouter);
+app.use("/api/stock", stockRouter);
 app.use(authMiddleware);
-app.use("/api");
+app.use("/api/v1", stockmodificationRouter);
+app.use("/api/v2", weathermodificationRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
