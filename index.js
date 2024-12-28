@@ -2,7 +2,6 @@ const express = require("express");
 const connectDB = require("./config/dbConnnection");
 require("dotenv").config();
 const weatherRouter = require("./router/weatherRouter");
-const financeRouter = require("./router/finanaceRouter");
 
 const app = express();
 
@@ -10,8 +9,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 connectDB();
-app.use("/weather", weatherRouter);
-app.use("/finance", financeRouter);
+app.use("/api/weather", weatherRouter);
 
 app.get("/", (req, res) => {
   res.send("MongoDB connection is successful!");
