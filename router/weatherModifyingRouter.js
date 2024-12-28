@@ -5,7 +5,7 @@ const {
   addWeather,
   deleteWeather,
   updateWeather,
-} = require("../controller/adminConrollers");
+} = require("../controller/weatherModification");
 
 // Apply roleMiddleware to all routes in this router
 

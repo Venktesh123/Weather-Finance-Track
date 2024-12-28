@@ -1,54 +1,22 @@
-const Stock = require("../models/stock"); // Adjust the path based on your file structure
+const Stock = require("../models/Stock");
+const { fetchStockData } = require("../services/stockService");
 
-// Add a new stock
-const addStock = async (req, res) => {
+const getStock = async (req, res) => {
+  const { company } = req.body;
+
   try {
-    const { company, data } = req.body;
-    const stock = new Stock({ company, data });
-    const savedStock = await stock.save();
-    res.status(201).json(savedStock);
+    // Fetch data from external API
+    const stockData = await fetchStockData(company);
+    console.log(stockData, "stockData");
+
+    // Save in MongoDB
+    const stock = new Stock({ company, data: stockData });
+    await stock.save();
+
+    res.status(200).json({ success: true, data: stockData });
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to add stock", details: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
-// Delete a stock by ID
-const deleteStock = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deletedStock = await Stock.findByIdAndDelete(id);
-    if (!deletedStock) {
-      return res.status(404).json({ error: "Stock not found" });
-    }
-    res.status(200).json({ message: "Stock deleted successfully" });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to delete stock", details: error.message });
-  }
-};
-
-// Update a stock by ID
-const updateStock = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { company, data } = req.body;
-    const updatedStock = await Stock.findByIdAndUpdate(
-      id,
-      { company, data },
-      { new: true, runValidators: true } // Return the updated document and validate input
-    );
-    if (!updatedStock) {
-      return res.status(404).json({ error: "Stock not found" });
-    }
-    res.status(200).json(updatedStock);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Failed to update stock", details: error.message });
-  }
-};
-
-module.exports = { addStock, deleteStock, updateStock };
+module.exports = { getStock };
