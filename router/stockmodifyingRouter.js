@@ -2,15 +2,17 @@ const express = require("express");
 const roleMiddleware = require("../middleware/roleMiddleware");
 const router = express.Router();
 const adminController = require("../controller/adminConrollers");
-
-// Apply roleMiddleware to all routes in this router
-
+const {
+  addStock,
+  deleteStock,
+  updateStock,
+} = require("../controllers/stockController");
 router.use(roleMiddleware(["admin"]));
 
-// Admin-specific routes
-router.post("/addData", adminController.addUser);
+router.post("/stocks", addStock);
 
-router.delete("/deleteData", adminController.deleteUser);
-router.post("/updateData", adminController.deleteUser);
+router.delete("/stocks/:id", deleteStock);
+
+router.put("/stocks/:id", updateStock);
 
 module.exports = router;
