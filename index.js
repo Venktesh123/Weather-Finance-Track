@@ -3,6 +3,7 @@ const connectDB = require("./config/dbConnnection");
 require("dotenv").config();
 const weatherRouter = require("./router/weatherRouter");
 const stockRouter = require("./router/finanaceRouter");
+const authRouter = require("./router/authRouter");
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 connectDB();
+app.use("/api", authRouter);
 app.use("/api/weather", weatherRouter);
 app.use("/api/stock", stockRouter);
 

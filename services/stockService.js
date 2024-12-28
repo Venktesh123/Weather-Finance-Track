@@ -4,7 +4,6 @@ const axios = require("axios");
 
 const fetchStockData = async (companyName) => {
   try {
-    // Fetch ticker symbol from Yahoo Finance
     const query = await yahooFinance.search(companyName);
     const symbol = query.quotes[0].symbol;
 
