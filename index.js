@@ -17,9 +17,9 @@ connectDB();
 app.get("/", (req, res) => {
   res.send("Backend Working ON Port 3000");
 });
-app.use("/api", authRouter);
 app.use("/api/weather", weatherRouter);
 app.use("/api/stock", stockRouter);
+app.use("/api", authRouter);
 app.use(authMiddleware);
 app.use("/api/v1", stockmodificationRouter);
 app.use("/api/v2", weathermodificationRouter);
