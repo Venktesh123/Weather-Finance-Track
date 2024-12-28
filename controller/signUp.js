@@ -1,10 +1,9 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-
 const SignUp = async (req, res) => {
   console.log("signup");
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body; // Include 'role' in the request body
 
     // Validate input
     if (!name || !email || !password) {
@@ -27,6 +26,7 @@ const SignUp = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      role: role || "user", // Use provided role or default to "user"
     });
 
     await user.save();
@@ -37,7 +37,7 @@ const SignUp = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role, // Role will default to "user" as per the schema
+        role: user.role, // Role can either be the default "user" or the provided value
       },
     });
   } catch (error) {
