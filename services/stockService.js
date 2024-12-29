@@ -12,7 +12,6 @@ const fetchStockData = async (companyName) => {
     const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${apiKey}`;
 
     const response = await axios.get(url);
-    console.log(response.data, "data");
     return response.data;
   } catch (error) {
     console.error("Stock API error:", error.message);

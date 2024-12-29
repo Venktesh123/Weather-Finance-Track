@@ -6,7 +6,6 @@ const getWeatherdetailsByLocation = async (req, res) => {
   try {
     // Fetch data from external API
     const weatherData = await fetchWeather(location);
-    console.log(weatherData, "datta");
 
     // Save in MongoDB
     const weather = new Weather({ location, data: weatherData });

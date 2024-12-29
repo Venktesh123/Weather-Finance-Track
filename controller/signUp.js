@@ -1,7 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const SignUp = async (req, res) => {
-  console.log("signup");
   try {
     const { name, email, password, role } = req.body; // Include 'role' in the request body
 
